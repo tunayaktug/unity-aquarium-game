@@ -13,14 +13,36 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI priceText;
     public Slider hungerSlider;
     public Slider healthSlider;
+    public float playerMoney = 0f;
+    public TextMeshProUGUI moneyText;
+    public Button sellButton;
+
 
     private FishInfo currentFish;
     private void Awake()
     {
         Instance = this;
         infoPanel.SetActive(false);
+
+        UpdateMoneyUI();
+        sellButton.onClick.AddListener(SellCurrentFish);
     }
 
+    void UpdateMoneyUI()
+    {
+        moneyText.text = "Para: $" + playerMoney.ToString("F2");
+    }
+
+    public void SellCurrentFish()
+    {
+        if (currentFish != null)
+        {
+            playerMoney += currentFish.currentPrice;
+            Destroy(currentFish.gameObject);
+            HideInfoPanel();
+            UpdateMoneyUI();
+        }
+    }
     public void ShowFishInfo(FishInfo fish)
     {
         currentFish = fish;
@@ -39,7 +61,26 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-     
+        if (infoPanel.activeSelf && currentFish != null)
+        {
+            hungerSlider.value = currentFish.hunger;
+            hungerText.text = "Açlýk: " + currentFish.hunger.ToString("F1");
+            healthSlider.value = currentFish.health;
+            healthText.text = "Can: " + currentFish.health.ToString("F1");
+            priceText.text = "Fiyat: $" + currentFish.currentPrice.ToString("F2");
+
+            //  Max seviye kontrolü
+            float currentScale = currentFish.transform.localScale.x;
+            if (currentScale >= currentFish.minScale * 5f) // 0.04 * 5 = 0.2
+            {
+                nameText.text = currentFish.fishName + " (Max Seviye)";
+            }
+            else
+            {
+                nameText.text = "Ýsim: " + currentFish.fishName;
+            }
+        }
+
         if (infoPanel.activeSelf && currentFish != null)
         {
             healthSlider.value = currentFish.health;
@@ -55,4 +96,6 @@ public class UIManager : MonoBehaviour
         infoPanel.SetActive(false);
         currentFish = null;
     }
+
+    
 }

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class FishGrowth : MonoBehaviour
 {
-    public float growthInterval = 15f;      // Kaç saniyede bir büyüyecek
+    public float growthInterval = 15f;     
     public float growthAmount = 0.01f;
     public float maxScale = 0.2f;
     public float minScale = 0.04f;
 
-    public GameObject growthEffectPrefab;   // Epic Toon FX efekt prefab'ý
+    public GameObject growthEffectPrefab;   
 
     private float timer = 0f;
     private FishInfo fishInfo;
