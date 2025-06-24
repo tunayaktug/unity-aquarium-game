@@ -12,6 +12,9 @@ public class FishGrowth : MonoBehaviour
     private float timer = 0f;
     private FishInfo fishInfo;
 
+    public AquariumManager aquariumManager;
+    private bool hasShownDirtyWarning = false;
+
     void Start()
     {
         fishInfo = GetComponent<FishInfo>();
@@ -20,7 +23,18 @@ public class FishGrowth : MonoBehaviour
 
     void Update()
     {
-        if (fishInfo == null) return;
+        if (fishInfo == null || aquariumManager == null) return;
+
+        if (aquariumManager.cleanliness <= 0f && !hasShownDirtyWarning)
+        {
+            Debug.Log("Akvaryum %100 kirli, balýklar büyümüyor! Akvaryumunu hep temizle");
+            hasShownDirtyWarning = true;
+        }
+
+        if (aquariumManager.cleanliness > 0f && hasShownDirtyWarning)
+        {
+            hasShownDirtyWarning = false;
+        }
 
         timer += Time.deltaTime;
 
@@ -30,10 +44,13 @@ public class FishGrowth : MonoBehaviour
 
             if (fishInfo.hunger < 80f)
             {
+                float cleanlinessMultiplier = aquariumManager.cleanliness / 100f;
+                float adjustedGrowthAmount = growthAmount * cleanlinessMultiplier;
+
                 float currentScale = transform.localScale.x;
                 if (currentScale < maxScale)
                 {
-                    float newScale = currentScale + growthAmount;
+                    float newScale = currentScale + adjustedGrowthAmount;
                     newScale = Mathf.Clamp(newScale, minScale, maxScale);
                     transform.localScale = new Vector3(newScale, newScale, newScale);
 
