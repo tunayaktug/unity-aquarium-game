@@ -16,7 +16,7 @@ public class UIManager : MonoBehaviour
     public float playerMoney = 0f;
     public TextMeshProUGUI moneyText;
     public Button sellButton;
-
+    public TextMeshProUGUI moneyText2;
 
     private FishInfo currentFish;
     private void Awake()
@@ -28,9 +28,10 @@ public class UIManager : MonoBehaviour
         sellButton.onClick.AddListener(SellCurrentFish);
     }
 
-    void UpdateMoneyUI()
+    public void UpdateMoneyUI()
     {
         moneyText.text = "Para: $" + playerMoney.ToString("F2");
+        moneyText2.text = "Para: $" + playerMoney.ToString("F2");
     }
 
     public void SellCurrentFish()
@@ -68,6 +69,7 @@ public class UIManager : MonoBehaviour
             healthSlider.value = currentFish.health;
             healthText.text = "Can: " + currentFish.health.ToString("F1");
             priceText.text = "Fiyat: $" + currentFish.currentPrice.ToString("F2");
+
 
             //  Max seviye kontrolü
             float currentScale = currentFish.transform.localScale.x;
