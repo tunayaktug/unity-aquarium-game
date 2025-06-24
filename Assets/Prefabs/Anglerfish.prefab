@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7420433332846603305}
   - component: {fileID: -5955959793563903370}
   - component: {fileID: 5118896036906064028}
+  - component: {fileID: 3121148441730606605}
   m_Layer: 0
   m_Name: Anglerfish
   m_TagString: Untagged
@@ -89,9 +90,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishName: Angler
   hunger: 0
+  hungerIncreaseRate: 1
   health: 100
   basePrice: 10
   minScale: 0.04
+  healthDecreaseRate: 5
+  animator: {fileID: 5792758955991480524}
+  isDead: 0
 --- !u!114 &7420433332846603305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +150,30 @@ MonoBehaviour:
   maxScale: 0.2
   minScale: 0.04
   growthEffectPrefab: {fileID: 8422030649103778391, guid: a0cc0ecad90095d4b8f3f7c10c586418, type: 3}
+  aquariumManager: {fileID: 0}
+--- !u!136 &3121148441730606605
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 995295433336567820}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2379737769072414579
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    public TextMeshProUGUI dayText;
     public GameObject infoPanel;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI hungerText;
@@ -18,6 +19,12 @@ public class UIManager : MonoBehaviour
     public Button sellButton;
     public TextMeshProUGUI moneyText2;
 
+    [Header("Daily Profit UI")]
+    public GameObject dailyProfitPanel;
+    public TextMeshProUGUI earnedText;
+    public TextMeshProUGUI spentText;
+    public TextMeshProUGUI profitText;
+
     private FishInfo currentFish;
     private void Awake()
     {
@@ -26,6 +33,8 @@ public class UIManager : MonoBehaviour
 
         UpdateMoneyUI();
         sellButton.onClick.AddListener(SellCurrentFish);
+
+        dailyProfitPanel.SetActive(false);
     }
 
     public void UpdateMoneyUI()
@@ -36,9 +45,14 @@ public class UIManager : MonoBehaviour
 
     public void SellCurrentFish()
     {
+        float salePrice = currentFish.currentPrice;
         if (currentFish != null)
         {
             playerMoney += currentFish.currentPrice;
+
+            GameManager.Instance.totalEarned += salePrice;
+            GameManager.Instance.today.earned += salePrice;
+
             Destroy(currentFish.gameObject);
             HideInfoPanel();
             UpdateMoneyUI();
@@ -83,21 +97,33 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        if (infoPanel.activeSelf && currentFish != null)
-        {
-            healthSlider.value = currentFish.health;
-            hungerSlider.value = currentFish.hunger;
-            hungerText.text = "Açlýk: " + currentFish.hunger.ToString("F1");
-            priceText.text = "Fiyat: $" + currentFish.currentPrice.ToString("F2");
-            healthText.text = "Can: " + currentFish.health.ToString("F1");
-        }
+
+        UpdateDayUI();
+        UpdateProfitUI();
     }
 
+    public void UpdateDayUI()
+    {
+        dayText.text = $"Day {GameManager.Instance.currentDay}";
+    }
+
+    public void UpdateProfitUI()
+    {
+        var today = GameManager.Instance.today;
+        earnedText.text = $"Today's Earned: ${today.earned:F2}";
+        spentText.text = $"Today's Spent: ${today.spent:F2}";
+        profitText.text = $"Today's Profit: ${today.Net:F2}";
+    }
     public void HideInfoPanel()
     {
         infoPanel.SetActive(false);
         currentFish = null;
     }
 
-    
+    public void ToggleProfitPanel()
+    {
+        dailyProfitPanel.SetActive(!dailyProfitPanel.activeSelf);
+    }
+
+
 }

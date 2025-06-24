@@ -19,6 +19,11 @@ public class FishGrowth : MonoBehaviour
     {
         fishInfo = GetComponent<FishInfo>();
         transform.localScale = Vector3.one * minScale;
+
+        if (aquariumManager == null)
+        {
+            aquariumManager = Object.FindFirstObjectByType<AquariumManager>();
+        }
     }
 
     void Update()

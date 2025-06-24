@@ -19,6 +19,7 @@ public class UIMarketManager : MonoBehaviour
     public Transform fishSpawnPoint;
     public UIManager uiManager;
     public GameObject marketPanel;
+   
 
     void Start()
     {
@@ -47,11 +48,14 @@ public class UIMarketManager : MonoBehaviour
             uiManager.UpdateMoneyUI();
             Vector3 spawnPos = fishSpawnPoint.position + new Vector3(Random.Range(-1f, 1f), 0, 0);
             Instantiate(fish.fishPrefab, spawnPos, Quaternion.identity);
+            GameManager.Instance.totalSpent += fish.price;
+            GameManager.Instance.today.spent += fish.price;
         }
         else
         {
             Debug.Log("Yetersiz para!");
         }
+
     }
 
     public void ToggleMarket()
