@@ -2,13 +2,27 @@ using UnityEngine;
 
 public class FishClickHandler : MonoBehaviour
 {
+    public FishInfo fishinfo;
+    private UIManager uiManager;
+    private void Start()
+    {
+        uiManager = UIManager.Instance;
+    }
     private void OnMouseDown()
     {
-        FishInfo info = GetComponent<FishInfo>();
-        if (info != null)
+
+        if (uiManager == null)
         {
-            UIManager.Instance.ShowFishInfo(info);
+            return;
         }
+        if (!uiManager.IsPointerOverUIObject())
+        {
+            
+            Debug.Log("a");
+            uiManager.ShowFishInfo(fishinfo);
+        }
+       
+        
     }
 
 

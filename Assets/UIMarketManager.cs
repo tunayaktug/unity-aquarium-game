@@ -28,35 +28,45 @@ public class UIMarketManager : MonoBehaviour
 
     void PopulateMarket()
     {
+        // Temizle
+        foreach (Transform child in contentArea)
+            Destroy(child.gameObject);
         foreach (var fish in fishList)
         {
+            MarketFish tempFish = fish;  // Fix: closure için
             GameObject card = Instantiate(fishCardPrefab, contentArea);
 
-            card.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = fish.fishName;
-            card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + fish.price.ToString("F2");
+            card.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = tempFish.fishName;
+            card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + tempFish.price.ToString("F2");
 
             Button buyBtn = card.transform.Find("buyButton").GetComponent<Button>();
-            buyBtn.onClick.AddListener(() => TryBuyFish(fish));
+            buyBtn.onClick.AddListener(() => TryBuyFish(tempFish));  // closure artýk güvenli
         }
     }
 
     void TryBuyFish(MarketFish fish)
     {
-        if (uiManager.playerMoney >= fish.price)
+        float price = fish.price;
+
+        if (uiManager.playerMoney >= price)
         {
-            uiManager.playerMoney -= fish.price;
+            uiManager.playerMoney -= price;
+            GameManager.Instance.totalSpent += price;
+            GameManager.Instance.today.spent += price;
+
+            Debug.Log($"[SATIN ALMA] {fish.fishName} alýndý, fiyat: {price}, kalan para: {uiManager.playerMoney}");
+
             uiManager.UpdateMoneyUI();
-            Vector3 spawnPos = fishSpawnPoint.position + new Vector3(Random.Range(-1f, 1f), 0, 0);
+
+            Vector3 spawnPos = fishSpawnPoint.position + new Vector3(UnityEngine.Random.Range(-1f, 1f), 0, 0);
             Instantiate(fish.fishPrefab, spawnPos, Quaternion.identity);
-            GameManager.Instance.totalSpent += fish.price;
-            GameManager.Instance.today.spent += fish.price;
         }
         else
         {
             Debug.Log("Yetersiz para!");
         }
-
     }
+
 
     public void ToggleMarket()
     {

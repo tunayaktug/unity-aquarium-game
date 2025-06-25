@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 5963483448092157058}
   - component: {fileID: -6680484829070020692}
   - component: {fileID: 7420433332846603305}
-  - component: {fileID: -5955959793563903370}
   - component: {fileID: 5118896036906064028}
-  - component: {fileID: 3121148441730606605}
+  - component: {fileID: 5759291591497213238}
   m_Layer: 0
   m_Name: Anglerfish
   m_TagString: Untagged
@@ -109,30 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1803fcbb49e8f594ca58d39cf2f30ec8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishinfo: {fileID: -6680484829070020692}
   bubbleEffectPrefab: {fileID: 6571342767628845866, guid: 0333346ccd80f7d40ad9518b1c031ad7, type: 3}
---- !u!136 &-5955959793563903370
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 995295433336567820}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5118896036906064028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,8 +128,8 @@ MonoBehaviour:
   minScale: 0.04
   growthEffectPrefab: {fileID: 8422030649103778391, guid: a0cc0ecad90095d4b8f3f7c10c586418, type: 3}
   aquariumManager: {fileID: 0}
---- !u!136 &3121148441730606605
-CapsuleCollider:
+--- !u!65 &5759291591497213238
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -169,10 +146,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 4, z: 4}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2379737769072414579
 GameObject:

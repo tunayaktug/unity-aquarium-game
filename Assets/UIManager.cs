@@ -1,14 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.InputSystem.EnhancedTouch;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
     public TextMeshProUGUI dayText;
-    public GameObject infoPanel;
+    public GameObject fishInfoPanel;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI hungerText;
     public TextMeshProUGUI healthText;
@@ -16,7 +17,7 @@ public class UIManager : MonoBehaviour
     public Image hungerFill;
     public Image healthFill;
     public Gradient gradient;
-    public float playerMoney = 0f;
+    public float playerMoney;
     public TextMeshProUGUI moneyText;
     public Button sellButton;
     public TextMeshProUGUI moneyText2;
@@ -28,15 +29,17 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI profitText;
 
     private FishInfo currentFish;
+    
     private void Awake()
     {
         Instance = this;
-        infoPanel.SetActive(false);
+        fishInfoPanel.SetActive(false);
 
         UpdateMoneyUI();
         sellButton.onClick.AddListener(SellCurrentFish);
 
         dailyProfitPanel.SetActive(false);
+        
     }
 
     public void UpdateMoneyUI()
@@ -47,9 +50,10 @@ public class UIManager : MonoBehaviour
 
     public void SellCurrentFish()
     {
-        float salePrice = currentFish.currentPrice;
+        
         if (currentFish != null)
         {
+            float salePrice = currentFish.currentPrice;
             playerMoney += currentFish.currentPrice;
 
             GameManager.Instance.totalEarned += salePrice;
@@ -60,26 +64,32 @@ public class UIManager : MonoBehaviour
             UpdateMoneyUI();
         }
     }
+
     public void ShowFishInfo(FishInfo fish)
     {
-        currentFish = fish;
-
+        if (fish==null)
+        {
+            return;
+        }
+ 
+            currentFish = fish;
+            fishInfoPanel.SetActive(true);
+            Debug.Log("Yeni balýk bilgisi gösteriliyor: " + fish.fishName);
+            nameText.text = "Ýsim: " + currentFish.fishName;
+            hungerText.text = "Açlýk: " + currentFish.hunger.ToString("F1");
+            healthText.text = "Can: " + currentFish.health.ToString("F1");
+            priceText.text = "Fiyat: $" + currentFish.currentPrice.ToString("F2");
         
        
-        infoPanel.SetActive(true);
-        nameText.text = "Ýsim: " + fish.fishName;
-        hungerText.text = "Açlýk: " + fish.hunger.ToString("F1");
-        healthText.text = "Can: " + fish.health.ToString("F1");
-        priceText.text = "Fiyat: $" + fish.currentPrice.ToString("F2");
-        
     }
+
 
 
     void Update()
     {
 
 
-        if (infoPanel.activeSelf && currentFish != null)
+        if (fishInfoPanel.activeSelf && currentFish != null)
         {
 
             hungerFill.fillAmount = currentFish.hunger / 100;
@@ -108,7 +118,7 @@ public class UIManager : MonoBehaviour
             }
         }
 
-
+      
         UpdateDayUI();
         UpdateProfitUI();
     }
@@ -127,7 +137,7 @@ public class UIManager : MonoBehaviour
     }
     public void HideInfoPanel()
     {
-        infoPanel.SetActive(false);
+        fishInfoPanel.SetActive(false);
         currentFish = null;
     }
 
@@ -136,5 +146,12 @@ public class UIManager : MonoBehaviour
         dailyProfitPanel.SetActive(!dailyProfitPanel.activeSelf);
     }
 
-
+    public bool IsPointerOverUIObject()
+    {
+        var eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        var results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
+    }
 }
