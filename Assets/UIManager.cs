@@ -29,7 +29,13 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI profitText;
 
     private FishInfo currentFish;
-    
+
+    public TextMeshProUGUI missionText;
+
+
+    public GameObject missionHistoryPanel;
+    public TextMeshProUGUI missionHistoryText;
+
     private void Awake()
     {
         Instance = this;
@@ -62,7 +68,11 @@ public class UIManager : MonoBehaviour
             Destroy(currentFish.gameObject);
             HideInfoPanel();
             UpdateMoneyUI();
+
+            GameManager.Instance.today.fishSold++; 
         }
+
+
     }
 
     public void ShowFishInfo(FishInfo fish)
@@ -154,4 +164,46 @@ public class UIManager : MonoBehaviour
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
         return results.Count > 0;
     }
+
+    public void UpdateMissionUI(string missionDesc, int current, int target, bool completed)
+    {
+        if (missionText != null)
+        {
+            if (completed)
+            {
+                missionText.text = $"Günlük Görev : {missionDesc} ({target}/{target})";
+            }
+            else
+            {
+                missionText.text = $"Günlük Görev: {missionDesc} ({current}/{target})";
+            }
+        }
+    }
+
+
+    public void ShowPopup(string message)
+    {
+        Debug.Log(message);
+        
+    }
+
+    public void UpdateMissionHistoryUI(List<string> missions)
+    {
+        if (missionHistoryText == null) return;
+
+        missionHistoryText.text = ""; // önce temizle
+
+        foreach (var entry in missions)
+        {
+            missionHistoryText.text += entry + "\n";
+        }
+    }
+
+    public void ToggleMissionHistory()
+    {
+        if (missionHistoryPanel != null)
+            missionHistoryPanel.SetActive(!missionHistoryPanel.activeSelf);
+    }
+
+
 }

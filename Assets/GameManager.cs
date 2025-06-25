@@ -68,6 +68,7 @@ public class GameManager : MonoBehaviour
         dayStats.Add(today);
 
         Debug.Log($"Yeni gün baþladý: {today.date}");
+        MissionManager.Instance.GenerateNewMission();
     }
 
     public float NetProfit => totalEarned - totalSpent;
