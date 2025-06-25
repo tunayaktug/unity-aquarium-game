@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.InputSystem.EnhancedTouch;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,9 +12,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI hungerText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI priceText;
-    public Image hungerFill;
-    public Image healthFill;
-    public Gradient gradient;
+    public Slider hungerSlider;
+    public Slider healthSlider;
     public float playerMoney = 0f;
     public TextMeshProUGUI moneyText;
     public Button sellButton;
@@ -64,41 +62,32 @@ public class UIManager : MonoBehaviour
     {
         currentFish = fish;
 
-        
-       
+
+        healthSlider.value = fish.health;
         infoPanel.SetActive(true);
         nameText.text = "Ýsim: " + fish.fishName;
         hungerText.text = "Açlýk: " + fish.hunger.ToString("F1");
         healthText.text = "Can: " + fish.health.ToString("F1");
         priceText.text = "Fiyat: $" + fish.currentPrice.ToString("F2");
-        
+        hungerSlider.value = fish.hunger;
     }
 
 
     void Update()
     {
 
-
         if (infoPanel.activeSelf && currentFish != null)
         {
-
-            hungerFill.fillAmount = currentFish.hunger / 100;
+            hungerSlider.value = currentFish.hunger;
             hungerText.text = "Açlýk: " + currentFish.hunger.ToString("F1");
-
-            healthFill.fillAmount = currentFish.health / 100;
+            healthSlider.value = currentFish.health;
             healthText.text = "Can: " + currentFish.health.ToString("F1");
-
             priceText.text = "Fiyat: $" + currentFish.currentPrice.ToString("F2");
 
-           
-            Color hungerColor = gradient.Evaluate(1f - currentFish.hunger / 100f);
-            hungerFill.color = hungerColor;
 
-            Color healthColor = gradient.Evaluate(currentFish.health / 100f);
-            healthFill.color = healthColor;
-
+            //  Max seviye kontrolü
             float currentScale = currentFish.transform.localScale.x;
-            if (currentScale >= currentFish.minScale * 5f)
+            if (currentScale >= currentFish.minScale * 5f) // 0.04 * 5 = 0.2
             {
                 nameText.text = currentFish.fishName + " (Max Seviye)";
             }

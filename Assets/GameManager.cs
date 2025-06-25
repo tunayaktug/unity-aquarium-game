@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
         today = new DailyStats
         {
-            date = "DAY " + currentDay,
+            date = "Day " + currentDay,
             earned = 0f,
             spent = 0f
         };
