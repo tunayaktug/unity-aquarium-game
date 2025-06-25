@@ -11,9 +11,9 @@ public class FishInfo : MonoBehaviour
     public float currentPrice { get; private set; }
 
     public float minScale = 0.04f;
-    public float healthDecreaseRate = 5f; 
-    
+    public float healthDecreaseRate = 5f;
 
+   
     public Animator animator;
     public bool isDead = false;
     void Update()
@@ -22,12 +22,14 @@ public class FishInfo : MonoBehaviour
 
         hunger += hungerIncreaseRate * Time.deltaTime;
         hunger = Mathf.Clamp(hunger, 0f, 100f);
+       
 
        
         if (hunger >= 100f)
         {
             health -= healthDecreaseRate * Time.deltaTime;
             health = Mathf.Clamp(health, 0f, 100f);
+         
         }
 
        
