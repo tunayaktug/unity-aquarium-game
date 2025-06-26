@@ -14,11 +14,14 @@ public class FishGrowth : MonoBehaviour
 
     public AquariumManager aquariumManager;
     private bool hasShownDirtyWarning = false;
-
+    public bool isLoaded = false;  
     void Start()
     {
         fishInfo = GetComponent<FishInfo>();
-        transform.localScale = Vector3.one * minScale;
+        if (!isLoaded && transform.localScale.x <= minScale + 0.0001f)
+        {
+            transform.localScale = Vector3.one * minScale;
+        }
 
         if (aquariumManager == null)
         {

@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     public float dayLength = 30f; // 15 dakika = 900f
     private float dayTimer = 0f;
 
+
+    private float autoSaveTimer = 0f;
+    private float autoSaveInterval = 30f; // her 30 saniyede bir
+
     void Awake()
     {
         if (Instance == null)
@@ -31,16 +35,21 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentDay = 1;
+        SaveManager.LoadGame(); 
 
-        today = new DailyStats
+       
+        if (GameManager.Instance.dayStats.Count == 0)
         {
-            date = "Day " + currentDay,
-            earned = 0f,
-            spent = 0f
-        };
+            currentDay = 1;
+            today = new DailyStats
+            {
+                date = "Day " + currentDay,
+                earned = 0f,
+                spent = 0f
+            };
 
-        dayStats.Add(today);
+            dayStats.Add(today);
+        }
     }
 
     private void Update()
@@ -50,6 +59,31 @@ public class GameManager : MonoBehaviour
         if (dayTimer >= dayLength)
         {
             StartNewGameDay();
+        }
+
+        if (autoSaveTimer >= autoSaveInterval)
+        {
+            SaveManager.SaveGame();
+            autoSaveTimer = 0f;
+            Debug.Log("Otomatik kayýt yapýldý.");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+            SaveManager.SaveGame();
+
+        if (Input.GetKeyDown(KeyCode.F1))
+            SaveManager.LoadGame();
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reset komutu çalýþtý: Oyun sýfýrlanýyor...");
+            GameManager.Instance.ResetGame();
+            MissionManager.Instance.ResetMissions();
+
+            UIManager.Instance.playerMoney = 0;
+            UIManager.Instance.UpdateMoneyUI();
+
+            MissionManager.Instance.GenerateNewMission();
         }
     }
 
@@ -72,4 +106,29 @@ public class GameManager : MonoBehaviour
     }
 
     public float NetProfit => totalEarned - totalSpent;
+
+
+  
+    public void ResetGame()
+    {
+        currentDay = 1;
+
+        today = new DailyStats
+        {
+            date = "Day " + currentDay,
+            earned = 0f,
+            spent = 0f,
+            fishSold = 0,
+            fishFed = 0
+        };
+
+        dayStats.Clear();
+        dayStats.Add(today);
+
+        totalEarned = 0f;
+        totalSpent = 0f;
+        dayTimer = 0f;
+
+        Debug.Log("Oyun sýfýrlandý: Gün 1’den baþlandý.");
+    }
 }
