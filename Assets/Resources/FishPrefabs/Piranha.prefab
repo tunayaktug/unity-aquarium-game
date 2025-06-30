@@ -240,7 +240,7 @@ Animator:
   m_GameObject: {fileID: 4760678664307047151}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: d7c01282a4b30e84590a36f133f4e61a, type: 3}
-  m_Controller: {fileID: 9100000, guid: ce9be6442ed81a8428c4f81464440876, type: 2}
+  m_Controller: {fileID: 9100000, guid: b7f7c6afbd29edf4db7e5236342b0b47, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -285,6 +285,7 @@ MonoBehaviour:
   basePrice: 210
   minScale: 0.04
   healthDecreaseRate: 5
+  fishType: 1
   animator: {fileID: 2286325018822507055}
   isDead: 0
 --- !u!114 &3037015494712160879

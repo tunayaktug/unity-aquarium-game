@@ -14,6 +14,7 @@ public class SmartFish2D : MonoBehaviour
     private Vector2 swimDirection;
     private float timer;
 
+ 
     void Start()
     {
         ChooseNewDirection();
