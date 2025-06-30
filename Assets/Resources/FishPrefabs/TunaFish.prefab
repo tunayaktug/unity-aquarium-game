@@ -264,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f1d650797d58845b93dcde19c42432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
+  speed: 0.2
   directionChangeInterval: 3
 --- !u!114 &-2517510762907188532
 MonoBehaviour:
@@ -281,7 +281,7 @@ MonoBehaviour:
   fishName: Tunafish
   hunger: 0
   hungerIncreaseRate: 1
-  health: 100
+  health: 200
   basePrice: 300
   minScale: 0.04
   healthDecreaseRate: 5
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   growthInterval: 15
   growthAmount: 0.01
-  maxScale: 0.2
+  maxScale: 0.3
   minScale: 0.04
   growthEffectPrefab: {fileID: 8422030649103778391, guid: a0cc0ecad90095d4b8f3f7c10c586418, type: 3}
   aquariumManager: {fileID: 0}
