@@ -319,6 +319,7 @@ MonoBehaviour:
   minScale: 0.04
   growthEffectPrefab: {fileID: 8422030649103778391, guid: a0cc0ecad90095d4b8f3f7c10c586418, type: 3}
   aquariumManager: {fileID: 0}
+  isLoaded: 0
 --- !u!65 &-1514262697499758242
 BoxCollider:
   m_ObjectHideFlags: 0
