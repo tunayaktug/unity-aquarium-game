@@ -23,38 +23,59 @@ public class UIMarketManager : MonoBehaviour
 
     void Start()
     {
+        
+        int gameDay = GameManager.Instance.currentDay;
+        string todayDiscountFish = DiscountManager.GetTodayDiscountFish(fishList, gameDay);
+
+        Debug.Log("Bugünün (Oyun Günü) Ýndirimli Balýðý: " + todayDiscountFish);
         PopulateMarket();
     }
 
     void PopulateMarket()
     {
-        // Temizle
+        int gameDay = GameManager.Instance.currentDay;
+        string discountFish = DiscountManager.GetTodayDiscountFish(fishList, gameDay);
+
         foreach (Transform child in contentArea)
             Destroy(child.gameObject);
+
         foreach (var fish in fishList)
         {
-            MarketFish tempFish = fish;  // Fix: closure için
+            MarketFish tempFish = fish;
             GameObject card = Instantiate(fishCardPrefab, contentArea);
 
+            // Ýsim ve fiyat
             card.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = tempFish.fishName;
-            card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + tempFish.price.ToString("F2");
+
+            float displayPrice = tempFish.price;
+            bool isDiscounted = DiscountManager.IsFishDiscounted(tempFish.fishName);
+
+            if (isDiscounted)
+            {
+                displayPrice *= 0.5f; // %50 indirim (istersen oraný deðiþtir)
+                card.transform.Find("bugünÝndirimde").gameObject.SetActive(true); // UI'de "Ýndirimde" etiketi
+            }
+            else
+            {
+                card.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+            }
+
+            card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + displayPrice.ToString("F2");
 
             Button buyBtn = card.transform.Find("buyButton").GetComponent<Button>();
-            buyBtn.onClick.AddListener(() => TryBuyFish(tempFish));  // closure artýk güvenli
+            buyBtn.onClick.AddListener(() => TryBuyFish(tempFish, displayPrice)); // fiyatý geçiyoruz
         }
     }
 
-    void TryBuyFish(MarketFish fish)
+
+
+    void TryBuyFish(MarketFish fish, float priceToPay)
     {
-        float price = fish.price;
-
-        if (uiManager.playerMoney >= price)
+        if (uiManager.playerMoney >= priceToPay)
         {
-            uiManager.playerMoney -= price;
-            GameManager.Instance.totalSpent += price;
-            GameManager.Instance.today.spent += price;
-
-            Debug.Log($"[SATIN ALMA] {fish.fishName} alýndý, fiyat: {price}, kalan para: {uiManager.playerMoney}");
+            uiManager.playerMoney -= priceToPay;
+            GameManager.Instance.totalSpent += priceToPay;
+            GameManager.Instance.today.spent += priceToPay;
 
             uiManager.UpdateMoneyUI();
 
@@ -75,4 +96,13 @@ public class UIMarketManager : MonoBehaviour
             marketPanel.SetActive(!marketPanel.activeSelf);
         }
     }
+
+    public void RefreshDiscountAndMarket()
+    {
+        int gameDay = GameManager.Instance.currentDay;
+        string discountFish = DiscountManager.GetTodayDiscountFish(fishList, gameDay);
+        Debug.Log("Yeni Gün Yeni indirimli balýk: " + discountFish);
+        PopulateMarket();
+    }
+
 }

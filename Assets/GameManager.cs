@@ -103,6 +103,9 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"Yeni gün baþladý: {today.date}");
         MissionManager.Instance.GenerateNewMission();
+        UnityEngine.Object.FindFirstObjectByType<UIMarketManager>()?.RefreshDiscountAndMarket();
+
+
     }
 
     public float NetProfit => totalEarned - totalSpent;

@@ -73,8 +73,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f1d650797d58845b93dcde19c42432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   speed: 0.1
   directionChangeInterval: 3
+  detectionRadius: 3
+  chaseSpeedMultiplier: 1.5
+  minDistanceToTarget: 1
 --- !u!114 &-6680484829070020692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +98,7 @@ MonoBehaviour:
   basePrice: 10
   minScale: 0.04
   healthDecreaseRate: 5
+  fishType: 0
   animator: {fileID: 5792758955991480524}
   isDead: 0
 --- !u!114 &7420433332846603305
@@ -128,6 +133,7 @@ MonoBehaviour:
   minScale: 0.04
   growthEffectPrefab: {fileID: 8422030649103778391, guid: a0cc0ecad90095d4b8f3f7c10c586418, type: 3}
   aquariumManager: {fileID: 0}
+  isLoaded: 0
 --- !u!65 &5759291591497213238
 BoxCollider:
   m_ObjectHideFlags: 0

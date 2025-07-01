@@ -264,8 +264,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54f1d650797d58845b93dcde19c42432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   speed: 0.2
   directionChangeInterval: 3
+  detectionRadius: 3
+  chaseSpeedMultiplier: 1.5
+  minDistanceToTarget: 1
 --- !u!114 &-2517510762907188532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,6 +289,7 @@ MonoBehaviour:
   basePrice: 220
   minScale: 0.04
   healthDecreaseRate: 5
+  fishType: 0
   animator: {fileID: 2286325018822507055}
   isDead: 0
 --- !u!114 &3037015494712160879
