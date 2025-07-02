@@ -65,6 +65,70 @@ public class UIMarketManager : MonoBehaviour
             Button buyBtn = card.transform.Find("buyButton").GetComponent<Button>();
             buyBtn.onClick.AddListener(() => TryBuyFish(tempFish, displayPrice)); // fiyatý geçiyoruz
         }
+        // EKSTRA ÜRÜNLER: Isýtýcý ve Soðutucu (Sadece gerektiðinde göster)
+        var temperature = GameManager.Instance.currentWaterTemperature;
+
+        // Isýtýcý göster (soðuk gün + alýnmamýþsa)
+        if (temperature == GameManager.WaterTemperature.Low && !GameManager.Instance.hasHeater)
+        {
+            GameObject heaterCard = Instantiate(fishCardPrefab, contentArea);
+
+            heaterCard.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = "Isýtýcý";
+            heaterCard.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$500";
+            heaterCard.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+
+            Button buyBtn = heaterCard.transform.Find("buyButton").GetComponent<Button>();
+            buyBtn.onClick.AddListener(() =>
+            {
+                if (uiManager.playerMoney >= 500f)
+                {
+                    uiManager.playerMoney -= 500f;
+                    GameManager.Instance.totalSpent += 500f;
+                    GameManager.Instance.today.spent += 500f;
+
+                    GameManager.Instance.hasHeater = true;
+                    uiManager.UpdateMoneyUI();
+                    Debug.Log(" Isýtýcý satýn alýndý! Artýk soðuk günlerden etkilenmeyeceksiniz. Ürün kalýcýdýr.");
+                    RefreshDiscountAndMarket(); // kartý kaldýrmak için yeniden yükle
+                }
+                else
+                {
+                    uiManager.ShowPopup("Yeterli paran yok!");
+                }
+            });
+        }
+
+        // Soðutucu göster (sýcak gün + alýnmamýþsa)
+        if (temperature == GameManager.WaterTemperature.High && !GameManager.Instance.hasCooler)
+        {
+            GameObject coolerCard = Instantiate(fishCardPrefab, contentArea);
+
+            coolerCard.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = "Soðutucu";
+            coolerCard.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$500";
+            coolerCard.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+
+            Button buyBtn = coolerCard.transform.Find("buyButton").GetComponent<Button>();
+            buyBtn.onClick.AddListener(() =>
+            {
+                if (uiManager.playerMoney >= 500f)
+                {
+                    uiManager.playerMoney -= 500f;
+                    GameManager.Instance.totalSpent += 500f;
+                    GameManager.Instance.today.spent += 500f;
+
+                    GameManager.Instance.hasCooler = true;
+                    uiManager.UpdateMoneyUI();
+                    Debug.Log(" Soðutucu satýn alýndý! Artýk sýcak günlerden etkilenmeyeceksiniz. Ürün kalýcýdýr.");
+                    RefreshDiscountAndMarket(); // kartý kaldýrmak için yeniden yükle
+                }
+                else
+                {
+                    uiManager.ShowPopup("Yeterli paran yok!");
+                }
+            });
+        }
+
+
     }
 
 

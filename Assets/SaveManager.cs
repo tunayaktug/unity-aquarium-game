@@ -30,6 +30,9 @@ public class SaveManager : MonoBehaviour
             };
             data.fishes.Add(f);
         }
+        data.hasHeater = GameManager.Instance.hasHeater;
+        data.hasCooler = GameManager.Instance.hasCooler;
+
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(Application.persistentDataPath + "/save.json", json);
@@ -49,7 +52,9 @@ public class SaveManager : MonoBehaviour
         string json = File.ReadAllText(path);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-       
+        GameManager.Instance.hasHeater = data.hasHeater;
+        GameManager.Instance.hasCooler = data.hasCooler;
+
         UIManager.Instance.playerMoney = data.playerMoney;
         GameManager.Instance.currentDay = data.currentDay;
         GameManager.Instance.totalSpent = data.totalSpent;

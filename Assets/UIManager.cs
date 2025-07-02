@@ -36,6 +36,8 @@ public class UIManager : MonoBehaviour
     public GameObject missionHistoryPanel;
     public TextMeshProUGUI missionHistoryText;
 
+
+    public TextMeshProUGUI temperatureText;
     private void Awake()
     {
         Instance = this;
@@ -93,6 +95,43 @@ public class UIManager : MonoBehaviour
        
     }
 
+    public void UpdateTemperatureUI()
+    {
+        string tempText = "";
+
+        switch (GameManager.Instance.currentWaterTemperature)
+        {
+            case GameManager.WaterTemperature.Normal:
+                tempText = "Normal";
+                break;
+
+            case GameManager.WaterTemperature.Low:
+                tempText = GameManager.Instance.hasHeater ? "Soðuk (Isýtýcý Aktif)" : "Soðuk ";
+                if (!GameManager.Instance.hasHeater)
+                {
+                    Debug.Log(" Su çok soðuk! Balýklar yavaþ büyüyecek. Marketten Isýtýcý almanýz gerekiyor.");
+                }
+                else
+                {
+                    Debug.Log("Soðuk gün – Isýtýcý aktif, büyüme normal.");
+                }
+                break;
+
+            case GameManager.WaterTemperature.High:
+                tempText = GameManager.Instance.hasCooler ? "Sýcak (Soðutucu Aktif)" : "Sýcak ";
+                if (!GameManager.Instance.hasCooler)
+                {
+                    Debug.Log(" Su çok sýcak! Balýklar yavaþ büyüyecek. Marketten Soðutucu almanýz gerekiyor.");
+                }
+                else
+                {
+                    Debug.Log("Sýcak gün – Soðutucu aktif, büyüme normal.");
+                }
+                break;
+        }
+
+        temperatureText.text = "Su Sýcaklýðý: " + tempText;
+    }
 
 
     void Update()

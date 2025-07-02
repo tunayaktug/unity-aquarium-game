@@ -1,4 +1,5 @@
 using UnityEngine;
+using static GameManager;
 
 public class FishGrowth : MonoBehaviour
 {
@@ -53,7 +54,22 @@ public class FishGrowth : MonoBehaviour
             if (fishInfo.hunger < 80f)
             {
                 float cleanlinessMultiplier = aquariumManager.cleanliness / 100f;
-                float adjustedGrowthAmount = growthAmount * cleanlinessMultiplier;
+                float temperatureMultiplier = 1f;
+                switch (GameManager.Instance.currentWaterTemperature)
+                {
+                    case GameManager.WaterTemperature.Low:
+                        temperatureMultiplier = GameManager.Instance.hasHeater ? 1f : 0.5f;
+                        break;
+                    case GameManager.WaterTemperature.High:
+                        temperatureMultiplier = GameManager.Instance.hasCooler ? 1f : 0.5f;
+                        break;
+                    default:
+                        temperatureMultiplier = 1f;
+                        break;
+                }
+
+                //  Tüm etkenlerle büyüme oraný
+                float adjustedGrowthAmount = growthAmount * cleanlinessMultiplier * temperatureMultiplier;
 
                 float currentScale = transform.localScale.x;
                 if (currentScale < maxScale)

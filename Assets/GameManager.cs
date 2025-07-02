@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public enum WaterTemperature
+    {
+        Normal,
+        Low,
+        High
+    }
+
+    public WaterTemperature currentWaterTemperature = WaterTemperature.Normal;
+    public bool hasHeater = false; // oyuncu marketten alýrsa true yapýlabilir
+    public bool hasCooler = false; // Soðutucu varsa sýcak gün etkilenmez
     public static GameManager Instance;
 
     public float totalSpent = 0f;
@@ -35,9 +45,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        SaveManager.LoadGame(); 
+        SaveManager.LoadGame();
+        UIManager.Instance?.UpdateTemperatureUI();
+        if (currentWaterTemperature == WaterTemperature.Low && !hasHeater)
+            Debug.Log(" Bugün su çok soðuk. Büyüme hýzý düþecek. Marketten Isýtýcý almalýsýn.");
 
-       
+        if (currentWaterTemperature == WaterTemperature.High && !hasCooler)
+            Debug.Log(" Bugün su çok sýcak. Büyüme hýzý düþecek. Marketten Soðutucu almalýsýn.");
+
         if (GameManager.Instance.dayStats.Count == 0)
         {
             currentDay = 1;
@@ -94,17 +109,26 @@ public class GameManager : MonoBehaviour
 
         today = new DailyStats
         {
-            date = "DAY " + currentDay,
+            date = "GÜN " + currentDay,
             earned = 0f,
             spent = 0f
         };
 
         dayStats.Add(today);
+        //  Su sýcaklýðýný rastgele belirle
+        int randomTemp = UnityEngine.Random.Range(0, 100);
+        if (randomTemp < 60)
+            currentWaterTemperature = WaterTemperature.Normal;
+        else if (randomTemp < 85)
+            currentWaterTemperature = WaterTemperature.Low;
+        else
+            currentWaterTemperature = WaterTemperature.High;
 
+        
         Debug.Log($"Yeni gün baþladý: {today.date}");
         MissionManager.Instance.GenerateNewMission();
         UnityEngine.Object.FindFirstObjectByType<UIMarketManager>()?.RefreshDiscountAndMarket();
-
+        UIManager.Instance.UpdateTemperatureUI();
 
     }
 

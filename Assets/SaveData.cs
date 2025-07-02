@@ -14,6 +14,10 @@ public class SaveData
     public List<DailyStats> dayStats = new List<DailyStats>();
     public List<FishSaveData> fishes = new List<FishSaveData>();
     public List<string> completedMissions = new List<string>();
-    
+
+    public bool hasHeater;
+    public bool hasCooler;
+
+
 
 }
