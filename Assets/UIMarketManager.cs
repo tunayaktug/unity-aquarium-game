@@ -13,14 +13,23 @@ public class UIMarketManager : MonoBehaviour
         public float price;
     }
 
+    [System.Serializable]
+    public class MarketAccessory
+    {
+        public string accessoryName;
+        public GameObject accessoryPrefab;
+        public float price;
+    }
+
     public List<MarketFish> fishList; // balýk listesi
     public GameObject fishCardPrefab;
     public Transform contentArea;
     public Transform fishSpawnPoint;
     public UIManager uiManager;
     public GameObject marketPanel;
-   
 
+    public List<MarketAccessory> accessoryList; // Inspector’dan eklenecek
+    public Transform accessorySpawnPoint; // Mouse ile yerleþtirilecek, burasý geçici konum
     void Start()
     {
         
@@ -36,8 +45,24 @@ public class UIMarketManager : MonoBehaviour
         int gameDay = GameManager.Instance.currentDay;
         string discountFish = DiscountManager.GetTodayDiscountFish(fishList, gameDay);
 
+
         foreach (Transform child in contentArea)
-            Destroy(child.gameObject);
+           Destroy(child.gameObject);
+
+        foreach (var accessory in accessoryList)
+        {
+            MarketAccessory tempAcc = accessory;
+            GameObject card = Instantiate(fishCardPrefab, contentArea);
+
+            card.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = tempAcc.accessoryName;
+            card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + tempAcc.price.ToString("F2");
+            card.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+
+            Button accBuyBtn = card.transform.Find("buyButton").GetComponent<Button>();
+            accBuyBtn.onClick.AddListener(() => TryBuyAccessory(tempAcc));
+        }
+
+
 
         foreach (var fish in fishList)
         {
@@ -96,6 +121,7 @@ public class UIMarketManager : MonoBehaviour
                     uiManager.ShowPopup("Yeterli paran yok!");
                 }
             });
+           
         }
 
         // Soðutucu göster (sýcak gün + alýnmamýþsa)
@@ -167,6 +193,24 @@ public class UIMarketManager : MonoBehaviour
         string discountFish = DiscountManager.GetTodayDiscountFish(fishList, gameDay);
         Debug.Log("Yeni Gün Yeni indirimli balýk: " + discountFish);
         PopulateMarket();
+    }
+
+    void TryBuyAccessory(MarketAccessory accessory)
+    {
+        if (uiManager.playerMoney >= accessory.price)
+        {
+            uiManager.playerMoney -= accessory.price;
+            GameManager.Instance.totalSpent += accessory.price;
+            GameManager.Instance.today.spent += accessory.price;
+
+            uiManager.UpdateMoneyUI();
+
+            AccessoryPlacementManager.Instance.PrepareAccessoryPlacement(accessory.accessoryPrefab);
+        }
+        else
+        {
+            uiManager.ShowPopup("Yeterli paran yok!");
+        }
     }
 
 }

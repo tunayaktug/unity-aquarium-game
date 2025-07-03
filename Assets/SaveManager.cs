@@ -32,6 +32,12 @@ public class SaveManager : MonoBehaviour
         }
         data.hasHeater = GameManager.Instance.hasHeater;
         data.hasCooler = GameManager.Instance.hasCooler;
+        GameObject[] placedAccessories = GameObject.FindGameObjectsWithTag("Accessory");
+        foreach (var accessory in placedAccessories)
+        {
+            data.placedAccessoryNames.Add(accessory.name.Replace("(Clone)", "").Trim());
+            data.placedAccessoryPositions.Add(accessory.transform.position);
+        }
 
 
         string json = JsonUtility.ToJson(data, true);
@@ -63,8 +69,20 @@ public class SaveManager : MonoBehaviour
         GameManager.Instance.today = data.dayStats[data.dayStats.Count - 1];
         Object.FindFirstObjectByType<AquariumManager>().cleanliness = data.cleanliness;
         UIManager.Instance.UpdateMoneyUI();
+        for (int i = 0; i < data.placedAccessoryNames.Count; i++)
+        {
+            string prefabName = data.placedAccessoryNames[i];
+            Vector3 pos = data.placedAccessoryPositions[i];
 
-       
+            GameObject prefab = Resources.Load<GameObject>("Accessories/" + prefabName);
+            if (prefab != null)
+            {
+                GameObject go = Instantiate(prefab, pos, Quaternion.identity);
+                go.tag = "Accessory"; // tekrar tag'le
+            }
+        }
+
+
         FishInfo[] existing = Object.FindObjectsByType<FishInfo>(FindObjectsSortMode.None);
         foreach (FishInfo fish in existing)
             Destroy(fish.gameObject);

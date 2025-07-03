@@ -155,6 +155,12 @@ public class GameManager : MonoBehaviour
         totalEarned = 0f;
         totalSpent = 0f;
         dayTimer = 0f;
+        // Sahnedeki aksesuarlarý temizle
+        GameObject[] accessories = GameObject.FindGameObjectsWithTag("Accessory");
+        foreach (GameObject accessory in accessories)
+        {
+            GameObject.Destroy(accessory);
+        }
 
         Debug.Log("Oyun sýfýrlandý: Gün 1’den baþlandý.");
     }

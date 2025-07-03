@@ -18,6 +18,9 @@ public class SaveData
     public bool hasHeater;
     public bool hasCooler;
 
+    public List<string> placedAccessoryNames = new List<string>();
+    public List<Vector3> placedAccessoryPositions = new List<Vector3>();
+
 
 
 }
