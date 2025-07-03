@@ -151,7 +151,8 @@ public class GameManager : MonoBehaviour
 
         dayStats.Clear();
         dayStats.Add(today);
-
+        hasHeater = false;
+        hasCooler = false;
         totalEarned = 0f;
         totalSpent = 0f;
         dayTimer = 0f;

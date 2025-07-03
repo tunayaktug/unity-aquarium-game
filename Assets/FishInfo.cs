@@ -21,6 +21,8 @@ public class FishInfo : MonoBehaviour
     public FishType fishType = FishType.Normal;
     public Animator animator;
     public bool isDead = false;
+
+
     void Update()
     {
         if (isDead) return;
@@ -68,7 +70,7 @@ public class FishInfo : MonoBehaviour
 
     void AttackNearbyFish()
     {
-        float attackRange = 0.2f;
+        float attackRange = 0.05f;
         float damagePerSecond = 20f;
         float moveSpeed = 1.5f;
 
@@ -95,24 +97,26 @@ public class FishInfo : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, closestTarget.transform.position);
 
-            // Yakýnda deðilse, yüzerek yaklaþ
             if (distance > attackRange)
             {
+                // Hedefe doðru yüz
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     closestTarget.transform.position,
                     moveSpeed * Time.deltaTime
                 );
+
+                // Henüz menzilde deðil  saldýrma
+                if (animator != null)
+                    animator.SetBool("isAttacking", false);
             }
             else
             {
-                // Yakýndaysa saldýr
+                // Menzilde  saldýr
                 closestTarget.health -= damagePerSecond * Time.deltaTime;
 
                 if (animator != null)
-                {
-                    animator.SetTrigger("Attack");
-                }
+                    animator.SetBool("isAttacking", true);
 
                 if (closestTarget.health <= 0f && !closestTarget.isDead)
                 {
@@ -121,7 +125,14 @@ public class FishInfo : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            // Hiç saldýrýlacak balýk kalmadýysa yüzmeye devam et
+            if (animator != null)
+                animator.SetBool("isAttacking", false);
+        }
     }
+
 
 
 
