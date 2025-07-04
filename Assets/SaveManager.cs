@@ -206,7 +206,7 @@ public class SaveManager : MonoBehaviour
         GameManager.Instance.currentDay = 1;
         GameManager.Instance.totalEarned = 0f;
         GameManager.Instance.totalSpent = 0f;
-        GameManager.Instance.today = new DailyStats { date = "Day 1", earned = 0f, spent = 0f };
+        GameManager.Instance.today = new DailyStats { date = "Gün 1", earned = 0f, spent = 0f };
         GameManager.Instance.dayStats = new List<DailyStats> { GameManager.Instance.today };
         UIManager.Instance.UpdateMoneyUI();
 

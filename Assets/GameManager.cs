@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
             currentDay = 1;
             today = new DailyStats
             {
-                date = "Day " + currentDay,
+                date = "Gün " + currentDay,
                 earned = 0f,
                 spent = 0f
             };
@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
 
         today = new DailyStats
         {
-            date = "Day " + currentDay,
+            date = "Gün " + currentDay,
             earned = 0f,
             spent = 0f,
             fishSold = 0,

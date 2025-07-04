@@ -1358,7 +1358,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.920344, y: 3.7084706, z: 0.98586}
+  m_LocalScale: {x: 5.979547, y: 3.7084706, z: 0.98586}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4678,22 +4678,22 @@ MonoBehaviour:
   - accessoryName: Pink Bush 2
     accessoryPrefab: {fileID: 7967153793386821998, guid: 47e71d79ea346a241b0b2db79597c227, type: 3}
     price: 200
-  - accessoryName: 'Yellow Flower Pot 1 '
+  - accessoryName: 'Empty Yellow Flower Pot 1 '
     accessoryPrefab: {fileID: 1479854648744282794, guid: 6ca12969035081d409509c30761adecd, type: 3}
     price: 200
-  - accessoryName: Red Flower Pot 2
+  - accessoryName: Empty Red Flower Pot 2
     accessoryPrefab: {fileID: 493700744986778808, guid: 0cafaecf73189b247a3e30f4ecfae9a5, type: 3}
     price: 200
-  - accessoryName: Yellow Flower Pot 2
+  - accessoryName: Empty Yellow Flower Pot 2
     accessoryPrefab: {fileID: 6500371580797455731, guid: 32a2ebc56007d7641abf59fdb95bce32, type: 3}
     price: 200
-  - accessoryName: Red Flower Pot 3
+  - accessoryName: Empty Red Flower Pot 3
     accessoryPrefab: {fileID: 7620051894221049402, guid: 23261ad4e9cfab94dad5f38d30bd248e, type: 3}
     price: 200
-  - accessoryName: Red Flower Pot 4
+  - accessoryName: Empty Red Flower Pot 4
     accessoryPrefab: {fileID: 3854527065686797384, guid: 65a45b6900767294ea1fedcb78dac1a0, type: 3}
     price: 200
-  - accessoryName: Yellow Flower Pot 4
+  - accessoryName: Empty Yellow Flower Pot 4
     accessoryPrefab: {fileID: 3797036730369604089, guid: 436322622b15ba841a058373f9e1a942, type: 3}
     price: 200
   - accessoryName: Magenta Flower 2
@@ -4804,6 +4804,87 @@ MonoBehaviour:
   - accessoryName: Yellow Flower 13
     accessoryPrefab: {fileID: 3114231892212435532, guid: 7431c3750679513448d57ac43a1905b2, type: 3}
     price: 1400
+  - accessoryName: Blue Flower Pot 1
+    accessoryPrefab: {fileID: 3002603191460513141, guid: 8d45abf6b23c9c44ebb23ac509a70c1b, type: 3}
+    price: 1500
+  - accessoryName: Red Flower Pot 1
+    accessoryPrefab: {fileID: 3927506841292412751, guid: 7ed6a113d465f3b44b934281cbfa0a2e, type: 3}
+    price: 1500
+  - accessoryName: Colorful Flower Pot 2
+    accessoryPrefab: {fileID: 2740568363581223785, guid: d65f92b8225590a46988925e86fca62e, type: 3}
+    price: 1600
+  - accessoryName: Pink Flower Pot 2
+    accessoryPrefab: {fileID: 2854887168976126177, guid: 8dc6309d38e7fcc44aba57eccd4f8d15, type: 3}
+    price: 1600
+  - accessoryName: Purple Flower Pot 2
+    accessoryPrefab: {fileID: 3395611455348209741, guid: f378f69a15195e44f95b685a297a5301, type: 3}
+    price: 1600
+  - accessoryName: Red Flower Pot 2
+    accessoryPrefab: {fileID: 1202200359515373541, guid: 20787863e49ad6745a0624a413cb3e51, type: 3}
+    price: 1600
+  - accessoryName: Yellow Flower Pot 2
+    accessoryPrefab: {fileID: 328508500909762095, guid: 798f95fed830f4d4c9902df13f1591c4, type: 3}
+    price: 1600
+  - accessoryName: Purple Flower Pot 3
+    accessoryPrefab: {fileID: 251140056309808539, guid: d8df04729c14bf44fa035ff44003a42b, type: 3}
+    price: 1700
+  - accessoryName: Red Flower Pot 3
+    accessoryPrefab: {fileID: 652799948236450475, guid: 16973c24feb7da44487ee172ad5997cb, type: 3}
+    price: 1700
+  - accessoryName: Colorful Flower Pot 4
+    accessoryPrefab: {fileID: 6620406907599052276, guid: 2b2ef38083b97344ea8a11c428d07138, type: 3}
+    price: 1800
+  - accessoryName: White Flower Pot 4
+    accessoryPrefab: {fileID: 548998901048685745, guid: 85488a260f0797b4995da6ba73fbfd27, type: 3}
+    price: 1800
+  - accessoryName: Lilac Flower Pot 5
+    accessoryPrefab: {fileID: 5956736086571300494, guid: 1b5c38aafd820ef478ea637d06217912, type: 3}
+    price: 1900
+  - accessoryName: Pink Flower Pot 5
+    accessoryPrefab: {fileID: 499105543683136460, guid: b9fbb76e57f27444fa14b3a37bd41142, type: 3}
+    price: 1900
+  - accessoryName: Purple Flower Pot 5
+    accessoryPrefab: {fileID: 2272026733378960828, guid: d1c5edf7de9e27e44b35297aeec6ee68, type: 3}
+    price: 1900
+  - accessoryName: Red Flower Pot 5
+    accessoryPrefab: {fileID: 9027806585097283885, guid: 10c41ce632ff4724593146c23cb1c069, type: 3}
+    price: 1900
+  - accessoryName: Colorful Flower Pot 6
+    accessoryPrefab: {fileID: 1109963123355926214, guid: 091000837767ad74783885d40fe841e1, type: 3}
+    price: 2000
+  - accessoryName: Orange Flower Pot 6
+    accessoryPrefab: {fileID: 7494905063913790557, guid: 1c0d1f525c01f044fb6ba6a550bb48b4, type: 3}
+    price: 2000
+  - accessoryName: Purple Flower Pot 6
+    accessoryPrefab: {fileID: 1952218905629509608, guid: 96e49963385be124bb3267195b106676, type: 3}
+    price: 2000
+  - accessoryName: Red Flower Pot 6
+    accessoryPrefab: {fileID: 6285783326848010371, guid: 8f4a699668f3f984ea7aa6cad448438e, type: 3}
+    price: 2000
+  - accessoryName: Colorful Flower Pot 7
+    accessoryPrefab: {fileID: 4384762424520465753, guid: 28c8ed3593a354c4089de94686d101f6, type: 3}
+    price: 2100
+  - accessoryName: Yellow Flower Pot 7
+    accessoryPrefab: {fileID: 3010350588002485059, guid: 45acd5b5132c7fa4a8ae5a683beeebe1, type: 3}
+    price: 2100
+  - accessoryName: Garden Flower Grid 1
+    accessoryPrefab: {fileID: 5130077490173144703, guid: 14d4a7ca7ee1cc748b8676dee22e27bd, type: 3}
+    price: 3000
+  - accessoryName: Garden Flower Grid 2
+    accessoryPrefab: {fileID: 8354903305656662736, guid: 186dfe85438f66642840094f929254f7, type: 3}
+    price: 3000
+  - accessoryName: Garden Flower Grid 3
+    accessoryPrefab: {fileID: 5699770087348396749, guid: 1fbac48c1cd5abb4aba58185ed59a39e, type: 3}
+    price: 3000
+  - accessoryName: Garden Flower Grid 4
+    accessoryPrefab: {fileID: 4575846887529357506, guid: 1b127d8df59eb944da805653d6532d0f, type: 3}
+    price: 3000
+  - accessoryName: Garden Flower Grid 5
+    accessoryPrefab: {fileID: 436266021742955258, guid: ba3b39cd4b366ac41a3dbae8909537a2, type: 3}
+    price: 3000
+  - accessoryName: Garden Flower Grid 6
+    accessoryPrefab: {fileID: 1887076779943768138, guid: 6dca712a21ea8a74f9eccfd0ba222435, type: 3}
+    price: 3000
   accessorySpawnPoint: {fileID: 0}
 --- !u!4 &1556031810
 Transform:

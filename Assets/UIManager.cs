@@ -174,7 +174,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateDayUI()
     {
-        dayText.text = $"Day {GameManager.Instance.currentDay}";
+        dayText.text = $"Gün {GameManager.Instance.currentDay}";
     }
 
     public void UpdateProfitUI()
