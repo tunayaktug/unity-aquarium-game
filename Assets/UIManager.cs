@@ -38,6 +38,10 @@ public class UIManager : MonoBehaviour
 
 
     public TextMeshProUGUI temperatureText;
+
+    [Header("Water Temperature Visual Effects")]
+    public Image freezeOverlay;
+    public Image heatOverlay;
     private void Awake()
     {
         Instance = this;
@@ -103,35 +107,60 @@ public class UIManager : MonoBehaviour
         {
             case GameManager.WaterTemperature.Normal:
                 tempText = "Normal";
+                SetTemperatureVisuals(normal: true);
                 break;
 
             case GameManager.WaterTemperature.Low:
                 tempText = GameManager.Instance.hasHeater ? "Soðuk (Isýtýcý Aktif)" : "Soðuk ";
+                SetTemperatureVisuals(cold: true, heaterActive: GameManager.Instance.hasHeater);
+
                 if (!GameManager.Instance.hasHeater)
-                {
                     Debug.Log(" Su çok soðuk! Balýklar yavaþ büyüyecek. Marketten Isýtýcý almanýz gerekiyor.");
-                }
                 else
-                {
                     Debug.Log("Soðuk gün – Isýtýcý aktif, büyüme normal.");
-                }
                 break;
 
             case GameManager.WaterTemperature.High:
                 tempText = GameManager.Instance.hasCooler ? "Sýcak (Soðutucu Aktif)" : "Sýcak ";
+                SetTemperatureVisuals(hot: true, coolerActive: GameManager.Instance.hasCooler);
+
                 if (!GameManager.Instance.hasCooler)
-                {
                     Debug.Log(" Su çok sýcak! Balýklar yavaþ büyüyecek. Marketten Soðutucu almanýz gerekiyor.");
-                }
                 else
-                {
                     Debug.Log("Sýcak gün – Soðutucu aktif, büyüme normal.");
-                }
                 break;
         }
 
         temperatureText.text = "Su Sýcaklýðý: " + tempText;
     }
+
+    private void SetTemperatureVisuals(bool normal = false, bool cold = false, bool hot = false, bool heaterActive = false, bool coolerActive = false)
+    {
+        if (cold && !heaterActive)
+        {
+            freezeOverlay.gameObject.SetActive(true);
+        }
+        else
+        {
+            freezeOverlay.gameObject.SetActive(false);
+        }
+
+        if (hot && !coolerActive)
+        {
+            heatOverlay.gameObject.SetActive(true);
+        }
+        else
+        {
+            heatOverlay.gameObject.SetActive(false);
+        }
+
+        if (normal)
+        {
+            freezeOverlay.gameObject.SetActive(false);
+            heatOverlay.gameObject.SetActive(false);
+        }
+    }
+
 
 
     void Update()
