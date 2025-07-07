@@ -5,6 +5,7 @@ public class AccessoryPlacementManager : MonoBehaviour
     public static AccessoryPlacementManager Instance;
 
     private GameObject accessoryToPlace;
+    private int currentRotation = 0; 
 
     private void Awake()
     {
@@ -20,16 +21,24 @@ public class AccessoryPlacementManager : MonoBehaviour
 
             accessoryToPlace.transform.position = mouseWorldPos;
 
-            if (Input.GetMouseButtonDown(0)) // Sol týkla yerleþtir
+            // E tuþuna basýldýðýnda 90 derece döndür
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentRotation = (currentRotation + 90) % 360;
+                accessoryToPlace.transform.rotation = Quaternion.Euler(0, 0, currentRotation);
+            }
+
+           
+            if (Input.GetMouseButtonDown(0))
             {
                 accessoryToPlace = null;
-               
             }
         }
     }
 
     public void PrepareAccessoryPlacement(GameObject prefab)
     {
-        accessoryToPlace = Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
+        accessoryToPlace = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+        currentRotation = 0;
     }
 }

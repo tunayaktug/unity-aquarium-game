@@ -20,6 +20,7 @@ public class SaveData
 
     public List<string> placedAccessoryNames = new List<string>();
     public List<Vector3> placedAccessoryPositions = new List<Vector3>();
+    public List<Quaternion> placedAccessoryRotations = new(); 
 
 
 

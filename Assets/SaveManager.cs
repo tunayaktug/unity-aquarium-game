@@ -37,6 +37,7 @@ public class SaveManager : MonoBehaviour
         {
             data.placedAccessoryNames.Add(accessory.name.Replace("(Clone)", "").Trim());
             data.placedAccessoryPositions.Add(accessory.transform.position);
+            data.placedAccessoryRotations.Add(accessory.transform.rotation);
         }
 
 
@@ -73,14 +74,20 @@ public class SaveManager : MonoBehaviour
         {
             string prefabName = data.placedAccessoryNames[i];
             Vector3 pos = data.placedAccessoryPositions[i];
+            Quaternion rot = Quaternion.identity;
+
+            if (i < data.placedAccessoryRotations.Count)
+                rot = data.placedAccessoryRotations[i];
 
             GameObject prefab = Resources.Load<GameObject>("Accessories/" + prefabName);
             if (prefab != null)
             {
-                GameObject go = Instantiate(prefab, pos, Quaternion.identity);
-                go.tag = "Accessory"; // tekrar tag'le
+                GameObject go = Instantiate(prefab, pos, rot); 
+                go.tag = "Accessory";
             }
         }
+
+
 
 
         FishInfo[] existing = Object.FindObjectsByType<FishInfo>(FindObjectsSortMode.None);
