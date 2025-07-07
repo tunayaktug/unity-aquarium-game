@@ -27,6 +27,11 @@ public class FishInfo : MonoBehaviour
     {
         if (isDead) return;
 
+        float effectiveHungerRate = hungerIncreaseRate;
+
+        if (GameManager.Instance.hasAutoFeeder)
+            effectiveHungerRate *= 0.6f; // %40 daha yavaþ acýkma
+
         hunger += hungerIncreaseRate * Time.deltaTime;
         hunger = Mathf.Clamp(hunger, 0f, 100f);
        

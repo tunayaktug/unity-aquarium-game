@@ -153,6 +153,62 @@ public class UIMarketManager : MonoBehaviour
                 }
             });
         }
+        // Filtre Sistemi (temizlik hýzý azaltýr)
+        if (!GameManager.Instance.hasFilterSystem)
+        {
+            GameObject filterCard = Instantiate(fishCardPrefab, contentArea);
+            filterCard.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = "Filtre Sistemi";
+            filterCard.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$1000";
+            filterCard.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+
+            Button buyBtn = filterCard.transform.Find("buyButton").GetComponent<Button>();
+            buyBtn.onClick.AddListener(() =>
+            {
+                if (uiManager.playerMoney >= 1000f)
+                {
+                    uiManager.playerMoney -= 1000f;
+                    GameManager.Instance.totalSpent += 1000f;
+                    GameManager.Instance.today.spent += 1000f;
+                    GameManager.Instance.hasFilterSystem = true;
+                    uiManager.UpdateMoneyUI();
+                    Debug.Log("Filtre Sistemi satýn alýndý! Temizlik yavaþ bozulacak.");
+                    RefreshDiscountAndMarket();
+                }
+                else
+                {
+                    uiManager.ShowPopup("Yeterli paran yok!");
+                }
+            });
+        }
+
+        // Yem Otomatiði (açlýk yavaþ artar)
+        if (!GameManager.Instance.hasAutoFeeder)
+        {
+            GameObject feederCard = Instantiate(fishCardPrefab, contentArea);
+            feederCard.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = "Yem Otomatiði";
+            feederCard.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$1000";
+            feederCard.transform.Find("bugünÝndirimde").gameObject.SetActive(false);
+
+            Button buyBtn = feederCard.transform.Find("buyButton").GetComponent<Button>();
+            buyBtn.onClick.AddListener(() =>
+            {
+                if (uiManager.playerMoney >= 1000f)
+                {
+                    uiManager.playerMoney -= 1000f;
+                    GameManager.Instance.totalSpent += 1000f;
+                    GameManager.Instance.today.spent += 1000f;
+                    GameManager.Instance.hasAutoFeeder = true;
+                    uiManager.UpdateMoneyUI();
+                    Debug.Log("Yem Otomatiði satýn alýndý! Balýklar daha yavaþ acýkacak.");
+                    RefreshDiscountAndMarket();
+                }
+                else
+                {
+                    uiManager.ShowPopup("Yeterli paran yok!");
+                }
+            });
+        }
+
 
 
     }

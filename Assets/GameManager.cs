@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public WaterTemperature currentWaterTemperature = WaterTemperature.Normal;
     public bool hasHeater = false; // oyuncu marketten alýrsa true yapýlabilir
     public bool hasCooler = false; // Soðutucu varsa sýcak gün etkilenmez
+    public bool hasFilterSystem = false;
+    public bool hasAutoFeeder = false;
+
     public static GameManager Instance;
 
     public float totalSpent = 0f;
@@ -129,6 +132,8 @@ public class GameManager : MonoBehaviour
         MissionManager.Instance.GenerateNewMission();
         UnityEngine.Object.FindFirstObjectByType<UIMarketManager>()?.RefreshDiscountAndMarket();
         UIManager.Instance.UpdateTemperatureUI();
+        
+
 
     }
 

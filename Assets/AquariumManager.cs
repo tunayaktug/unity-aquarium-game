@@ -9,6 +9,10 @@ public class AquariumManager : MonoBehaviour
 
     void Update()
     {
+        float effectiveDecay = decayRate;
+
+        if (GameManager.Instance.hasFilterSystem)
+            effectiveDecay *= 0.5f; // %50 daha yavaþ kirlenme
         cleanliness -= decayRate * Time.deltaTime;
         cleanliness = Mathf.Clamp(cleanliness, 0f, 100f);
 

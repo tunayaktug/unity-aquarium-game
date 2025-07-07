@@ -15,6 +15,9 @@ public class SaveManager : MonoBehaviour
         data.dayStats = GameManager.Instance.dayStats;
         data.completedMissions = MissionManager.Instance.completedMissions;
         data.cleanliness = Object.FindFirstObjectByType<AquariumManager>().cleanliness;
+        data.hasFilterSystem = GameManager.Instance.hasFilterSystem;
+        data.hasAutoFeeder = GameManager.Instance.hasAutoFeeder;
+
 
         FishInfo[] allFish = Object.FindObjectsByType<FishInfo>(FindObjectsSortMode.None);
         foreach (FishInfo fish in allFish)
@@ -61,6 +64,9 @@ public class SaveManager : MonoBehaviour
 
         GameManager.Instance.hasHeater = data.hasHeater;
         GameManager.Instance.hasCooler = data.hasCooler;
+        GameManager.Instance.hasFilterSystem = data.hasFilterSystem;
+        GameManager.Instance.hasAutoFeeder = data.hasAutoFeeder;
+
 
         UIManager.Instance.playerMoney = data.playerMoney;
         GameManager.Instance.currentDay = data.currentDay;

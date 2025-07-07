@@ -209,9 +209,9 @@ public class UIManager : MonoBehaviour
     public void UpdateProfitUI()
     {
         var today = GameManager.Instance.today;
-        earnedText.text = $"Today's Earned: ${today.earned:F2}";
-        spentText.text = $"Today's Spent: ${today.spent:F2}";
-        profitText.text = $"Today's Profit: ${today.Net:F2}";
+        earnedText.text = $"Bugün Kazanýlan: ${today.earned:F2}";
+        spentText.text = $"Bugün Harcanan: ${today.spent:F2}";
+        profitText.text = $"Bugünün Kârý: ${today.Net:F2}";
     }
     public void HideInfoPanel()
     {
