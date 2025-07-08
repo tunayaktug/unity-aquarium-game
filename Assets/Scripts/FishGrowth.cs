@@ -68,7 +68,7 @@ public class FishGrowth : MonoBehaviour
                         break;
                 }
 
-                //  Tüm etkenlerle büyüme oraný
+                
                 float adjustedGrowthAmount = growthAmount * cleanlinessMultiplier * temperatureMultiplier;
 
                 float currentScale = transform.localScale.x;

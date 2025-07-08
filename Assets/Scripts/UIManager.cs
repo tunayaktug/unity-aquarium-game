@@ -259,7 +259,7 @@ public class UIManager : MonoBehaviour
     {
         if (missionHistoryText == null) return;
 
-        missionHistoryText.text = ""; // önce temizle
+        missionHistoryText.text = ""; 
 
         foreach (var entry in missions)
         {

@@ -21,15 +21,15 @@ public class UIMarketManager : MonoBehaviour
         public float price;
     }
 
-    public List<MarketFish> fishList; // balýk listesi
+    public List<MarketFish> fishList;
     public GameObject fishCardPrefab;
     public Transform contentArea;
     public Transform fishSpawnPoint;
     public UIManager uiManager;
     public GameObject marketPanel;
 
-    public List<MarketAccessory> accessoryList; // Inspector’dan eklenecek
-    public Transform accessorySpawnPoint; // Mouse ile yerleþtirilecek, burasý geçici konum
+    public List<MarketAccessory> accessoryList; 
+    public Transform accessorySpawnPoint; 
     void Start()
     {
         
@@ -69,7 +69,7 @@ public class UIMarketManager : MonoBehaviour
             MarketFish tempFish = fish;
             GameObject card = Instantiate(fishCardPrefab, contentArea);
 
-            // Ýsim ve fiyat
+            
             card.transform.Find("BalýkAdý").GetComponent<TextMeshProUGUI>().text = tempFish.fishName;
 
             float displayPrice = tempFish.price;
@@ -77,8 +77,8 @@ public class UIMarketManager : MonoBehaviour
 
             if (isDiscounted)
             {
-                displayPrice *= 0.5f; // %50 indirim (istersen oraný deðiþtir)
-                card.transform.Find("bugünÝndirimde").gameObject.SetActive(true); // UI'de "Ýndirimde" etiketi
+                displayPrice *= 0.5f; 
+                card.transform.Find("bugünÝndirimde").gameObject.SetActive(true); 
             }
             else
             {
@@ -88,12 +88,12 @@ public class UIMarketManager : MonoBehaviour
             card.transform.Find("BalýkFiyatý").GetComponent<TextMeshProUGUI>().text = "$" + displayPrice.ToString("F2");
 
             Button buyBtn = card.transform.Find("buyButton").GetComponent<Button>();
-            buyBtn.onClick.AddListener(() => TryBuyFish(tempFish, displayPrice)); // fiyatý geçiyoruz
+            buyBtn.onClick.AddListener(() => TryBuyFish(tempFish, displayPrice)); 
         }
-        // EKSTRA ÜRÜNLER: Isýtýcý ve Soðutucu (Sadece gerektiðinde göster)
+       
         var temperature = GameManager.Instance.currentWaterTemperature;
 
-        // Isýtýcý göster (soðuk gün + alýnmamýþsa)
+        
         if (temperature == GameManager.WaterTemperature.Low && !GameManager.Instance.hasHeater)
         {
             GameObject heaterCard = Instantiate(fishCardPrefab, contentArea);
@@ -114,7 +114,7 @@ public class UIMarketManager : MonoBehaviour
                     GameManager.Instance.hasHeater = true;
                     uiManager.UpdateMoneyUI();
                     Debug.Log(" Isýtýcý satýn alýndý! Artýk soðuk günlerden etkilenmeyeceksiniz. Ürün kalýcýdýr.");
-                    RefreshDiscountAndMarket(); // kartý kaldýrmak için yeniden yükle
+                    RefreshDiscountAndMarket(); 
                 }
                 else
                 {
@@ -124,7 +124,7 @@ public class UIMarketManager : MonoBehaviour
            
         }
 
-        // Soðutucu göster (sýcak gün + alýnmamýþsa)
+      
         if (temperature == GameManager.WaterTemperature.High && !GameManager.Instance.hasCooler)
         {
             GameObject coolerCard = Instantiate(fishCardPrefab, contentArea);
@@ -145,7 +145,7 @@ public class UIMarketManager : MonoBehaviour
                     GameManager.Instance.hasCooler = true;
                     uiManager.UpdateMoneyUI();
                     Debug.Log(" Soðutucu satýn alýndý! Artýk sýcak günlerden etkilenmeyeceksiniz. Ürün kalýcýdýr.");
-                    RefreshDiscountAndMarket(); // kartý kaldýrmak için yeniden yükle
+                    RefreshDiscountAndMarket(); 
                 }
                 else
                 {
@@ -153,7 +153,7 @@ public class UIMarketManager : MonoBehaviour
                 }
             });
         }
-        // Filtre Sistemi (temizlik hýzý azaltýr)
+       
         if (!GameManager.Instance.hasFilterSystem)
         {
             GameObject filterCard = Instantiate(fishCardPrefab, contentArea);
@@ -181,7 +181,7 @@ public class UIMarketManager : MonoBehaviour
             });
         }
 
-        // Yem Otomatiði (açlýk yavaþ artar)
+        
         if (!GameManager.Instance.hasAutoFeeder)
         {
             GameObject feederCard = Instantiate(fishCardPrefab, contentArea);

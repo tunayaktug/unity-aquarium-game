@@ -30,7 +30,7 @@ public class FishInfo : MonoBehaviour
         float effectiveHungerRate = hungerIncreaseRate;
 
         if (GameManager.Instance.hasAutoFeeder)
-            effectiveHungerRate *= 0.6f; // %40 daha yavaþ acýkma
+            effectiveHungerRate *= 0.6f;
 
         hunger += hungerIncreaseRate * Time.deltaTime;
         hunger = Mathf.Clamp(hunger, 0f, 100f);
@@ -104,20 +104,20 @@ public class FishInfo : MonoBehaviour
 
             if (distance > attackRange)
             {
-                // Hedefe doðru yüz
+               
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     closestTarget.transform.position,
                     moveSpeed * Time.deltaTime
                 );
 
-                // Henüz menzilde deðil  saldýrma
+                
                 if (animator != null)
                     animator.SetBool("isAttacking", false);
             }
             else
             {
-                // Menzilde  saldýr
+             
                 closestTarget.health -= damagePerSecond * Time.deltaTime;
 
                 if (animator != null)
@@ -132,7 +132,7 @@ public class FishInfo : MonoBehaviour
         }
         else
         {
-            // Hiç saldýrýlacak balýk kalmadýysa yüzmeye devam et
+          
             if (animator != null)
                 animator.SetBool("isAttacking", false);
         }

@@ -12,7 +12,7 @@ public class AquariumManager : MonoBehaviour
         float effectiveDecay = decayRate;
 
         if (GameManager.Instance.hasFilterSystem)
-            effectiveDecay *= 0.5f; // %50 daha yavaþ kirlenme
+            effectiveDecay *= 0.5f; 
         cleanliness -= decayRate * Time.deltaTime;
         cleanliness = Mathf.Clamp(cleanliness, 0f, 100f);
 

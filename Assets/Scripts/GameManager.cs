@@ -12,8 +12,8 @@ public class GameManager : MonoBehaviour
     }
 
     public WaterTemperature currentWaterTemperature = WaterTemperature.Normal;
-    public bool hasHeater = false; // oyuncu marketten alýrsa true yapýlabilir
-    public bool hasCooler = false; // Soðutucu varsa sýcak gün etkilenmez
+    public bool hasHeater = false; 
+    public bool hasCooler = false; 
     public bool hasFilterSystem = false;
     public bool hasAutoFeeder = false;
 
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
 
 
     private float autoSaveTimer = 0f;
-    private float autoSaveInterval = 30f; // her 30 saniyede bir
+    private float autoSaveInterval = 30f;
 
     void Awake()
     {
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
         };
 
         dayStats.Add(today);
-        //  Su sýcaklýðýný rastgele belirle
+        
         int randomTemp = UnityEngine.Random.Range(0, 100);
         if (randomTemp < 60)
             currentWaterTemperature = WaterTemperature.Normal;
@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
         totalEarned = 0f;
         totalSpent = 0f;
         dayTimer = 0f;
-        // Sahnedeki aksesuarlarý temizle
+       
         GameObject[] accessories = GameObject.FindGameObjectsWithTag("Accessory");
         foreach (GameObject accessory in accessories)
         {

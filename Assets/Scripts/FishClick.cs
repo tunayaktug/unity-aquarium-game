@@ -50,7 +50,7 @@ public class FishClickHandler : MonoBehaviour
         {
             info.hunger = 0f; 
             SpawnBubbleEffect();
-            GameManager.Instance.today.fishFed++; // BU SATIRI EKLE
+            GameManager.Instance.today.fishFed++; 
 
         }
     }
